@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lecteur Vidéos</title>
+<style>
+body {
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+margin: 0;
+padding: 20px;
+background-color: #000;
+height: 100vh;
+}
+video {
+margin: 20px 0;
+max-width: 100%;
+height: auto;
+background-color: #000;
+}
+</style>
+</head>
+<body>
+
+<!-- Vidéo 1 -->
+<video id="video1" width="640" height="360" controls>
+<source src="videos/video1.mp4" type="video/mp4">
+Votre navigateur ne supporte pas la lecture vidéo.
+</video>
+
+<!-- Vidéo 2 -->
+<video id="video2" width="640" height="360" preload="auto">
+<source src="videos/video2.mp4" type="video/mp4">
+Votre navigateur ne supporte pas la lecture vidéo.
+</video>
+
+<script>
+const video2 = document.getElementById('video2');
+
+function playVideo2(e) {
+const centerX = window.innerWidth / 2;
+const centerY = window.innerHeight / 2;
+const zoneSize = 50;
+
+let x, y;
+if (e.type === "touchstart") {
+x = e.touches[0].clientX;
+y = e.touches[0].clientY;
+} else {
+x = e.clientX;
+y = e.clientY;
+}
+
+if (
+x >= centerX - zoneSize && x <= centerX + zoneSize &&
+y >= centerY - zoneSize && y <= centerY + zoneSize
+) {
+video2.play();
+document.removeEventListener('click', playVideo2);
+document.removeEventListener('touchstart', playVideo2);
+}
+}
+
+document.addEventListener('click', playVideo2);
+document.addEventListener('touchstart', playVideo2);
+</script>
+
+</body>
+</html>
